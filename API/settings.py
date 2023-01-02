@@ -51,6 +51,7 @@ INSTALLED_APPS = [
     'rest_framework',
     'corsheaders',
     'animal',
+    'django_extensions',
 ]
 
 MIDDLEWARE = [
