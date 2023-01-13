@@ -14,6 +14,7 @@ from pathlib import Path
 import environ
 import os
 
+
 env = environ.Env(
     # set casting, default value
     DEBUG=(bool, True)
@@ -37,7 +38,12 @@ SECRET_KEY = env('SECRET_KEY')
 # See https://docs.djangoproject.com/en/4.1/howto/deployment/checklist/
 
 ALLOWED_HOSTS = ['127.0.0.1', 'localhost', '192.168.0.31']
-# ALLOWED_HOSTS = []
+ALLOWED_HOSTS.extend(
+    filter(
+        None,
+        env.get_value('ALLOWED_HOSTS', default='').split(',')
+    )
+)
 
 
 # Application definition
@@ -97,6 +103,9 @@ WSGI_APPLICATION = 'API.wsgi.application'
 # Database
 # https://docs.djangoproject.com/en/4.1/ref/settings/#databases
 
+# DB connection
+# Local dev: python manage.py runserver
+# Docker dev: everything starts with "docker-compose"
 DATABASES = {
     'default': {
         'ENGINE': 'django.db.backends.postgresql_psycopg2',
@@ -104,10 +113,9 @@ DATABASES = {
         'USER': env("DB_USER"),
         'PASSWORD': env("DB_PASSWORD"),
         'HOST': env("DB_HOST"),
-        'PORT': env("DB_PORT"),
+        'PORT': env("DB_PORT")
     }
 }
-
 
 # Password validation
 # https://docs.djangoproject.com/en/4.1/ref/settings/#auth-password-validators
