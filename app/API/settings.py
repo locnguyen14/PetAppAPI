@@ -37,14 +37,16 @@ SECRET_KEY = env('SECRET_KEY')
 # Quick-start development settings - unsuitable for production
 # See https://docs.djangoproject.com/en/4.1/howto/deployment/checklist/
 
-ALLOWED_HOSTS = ['127.0.0.1', 'localhost', '192.168.0.31']
+ALLOWED_HOSTS = ['127.0.0.1', 'localhost']
+ALLOWED_HOSTS.append(env('LOCAL_ALLOWED_HOST'))
+
+# For production deployment
 ALLOWED_HOSTS.extend(
     filter(
         None,
         env.get_value('ALLOWED_HOSTS', default='').split(',')
     )
 )
-
 
 # Application definition
 INSTALLED_APPS = [
@@ -72,12 +74,12 @@ MIDDLEWARE = [
     'django.middleware.clickjacking.XFrameOptionsMiddleware',
 ]
 
-CORS_ORIGIN_ALLOW_ALL = True
+CORS_ORIGIN_ALLOW_ALL = False
 
-# CORS_ALLOWED_ORIGINS = [
-#     'http://127.0.0.1:8000',
-#     'http://localhost:8000',
-# ]
+CORS_ALLOWED_ORIGINS = [
+    'http://localhost:19006',
+    'http://localhost:8000',
+]
 
 ROOT_URLCONF = 'API.urls'
 
