@@ -2,9 +2,8 @@ from django.urls import path, include
 from rest_framework.routers import DefaultRouter
 from .views import AnimalViewSet, UserViewSet
 
-router = DefaultRouter()
 # Create a router and register our viewsets with it.
-router = DefaultRouter()
+router = DefaultRouter(trailing_slash=False)
 router.register(r'animals', AnimalViewSet, basename="animal")
 router.register(r'users', UserViewSet, basename="user")
 

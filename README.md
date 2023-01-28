@@ -10,4 +10,4 @@ TODO:
 
 2. Document how to run the app locally:
 
-- Need to communicate with another device --> expose the server with the ip machine. Example, if your machine IP is x.x.x.x and the app is running on port 8000 --> python manage.py x.x.x.x:8000
+- Need to communicate with another device --> expose the server with the ip machine. Example, if your machine IP is x.x.x.x and the app is running on port 8000 --> python manage.py runserver x.x.x.x:8000
