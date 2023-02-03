@@ -59,7 +59,9 @@ INSTALLED_APPS = [
     'rest_framework',
     'corsheaders',
     'animal',
+    'user',
     'django_extensions',
+    'rest_framework.authtoken'
 ]
 
 MIDDLEWARE = [

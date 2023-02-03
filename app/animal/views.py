@@ -1,19 +1,13 @@
+# Need to reimport the new user class?
 from django.contrib.auth.models import User, Group
+
 from animal.models import Animal
 from rest_framework import permissions, generics, viewsets
 from rest_framework.decorators import action
-from animal.serializers import UserSerializer, AnimalSerializer
+from animal.serializers import AnimalSerializer
 from animal.permissions import IsOwnerOrReadOnly
 from rest_framework import status
 from rest_framework.response import Response
-
-
-class UserViewSet(viewsets.ReadOnlyModelViewSet):
-    """
-    This viewset automatically provides `list` and `retrieve` actions.
-    """
-    queryset = User.objects.all()
-    serializer_class = UserSerializer
 
 
 class AnimalViewSet(viewsets.ModelViewSet):
