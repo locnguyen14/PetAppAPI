@@ -20,7 +20,7 @@ urlpatterns = [
     # path('admin/', admin.site.urls),
     path('', include('animal.urls')),
     path('', include('user.urls')),
-    path('api-token-auth', views.obtain_auth_token)
+    path('api-token-auth/', views.obtain_auth_token)
 ]
 
 urlpatterns += [

@@ -1,8 +1,9 @@
-from rest_framework.serializers import ModelSerializer, CharField, EmailField, ValidationError
+from rest_framework.serializers import ModelSerializer, CharField, EmailField, ValidationError, Serializer
 from django.contrib.auth.models import User
 from rest_framework.response import Response
 from rest_framework.validators import UniqueValidator
 from django.contrib.auth.password_validation import validate_password
+from django.contrib.auth import authenticate
 
 
 # Serializer to Get User Details using Django Token Authentication
@@ -41,3 +42,14 @@ class RegisterSerializer(ModelSerializer):
         user.set_password(validated_data['password'])
         user.save()
         return user
+
+
+class LoginSerializer(Serializer):
+    username = CharField()
+    password = CharField()
+
+    def validate(self, data):
+        user = authenticate(**data)
+        if user and user.is_active:
+            return user
+        raise ValidationError("Incorrect Credentials")

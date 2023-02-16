@@ -61,7 +61,7 @@ INSTALLED_APPS = [
     'animal',
     'user',
     'django_extensions',
-    'rest_framework.authtoken'
+    'rest_framework.authtoken',
 ]
 
 MIDDLEWARE = [

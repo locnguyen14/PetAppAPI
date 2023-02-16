@@ -31,5 +31,5 @@ class AnimalViewSet(viewsets.ModelViewSet):
         serializer.save(owner=self.request.user)
 
     # If you only want to show a list of objects associated with this users
-    # def get_queryset(self, *args, **kwargs):
-    #     return Animal.objects.all().filter(owner=self.request.user)
+    def get_queryset(self, *args, **kwargs):
+        return self.request.user.animals.all()

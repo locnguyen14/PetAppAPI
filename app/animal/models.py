@@ -8,7 +8,6 @@ class Animal(models.Model):
         (0, 'DOG'),
         (1, 'CAT'),
         (2, 'Others'),
-
     )
     animal_id = models.UUIDField(
         primary_key=True, db_column='id', default=uuid.uuid4)
@@ -18,7 +17,7 @@ class Animal(models.Model):
     note = models.TextField(max_length=1000)
     animalType = models.IntegerField(choices=ANIMAL_TYPES)
     owner = models.ForeignKey(
-        User, on_delete=models.CASCADE, related_name='animals')
+        User, on_delete=models.CASCADE, related_name='animals', null=True)
 
     def save(self, *args, **kwargs):
         super().save(*args, kwargs)
