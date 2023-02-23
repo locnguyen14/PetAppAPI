@@ -35,7 +35,6 @@ class LoginAPI(GenericAPIView):
         serializer.is_valid(raise_exception=True)
         user = serializer.validated_data
         token, _ = Token.objects.get_or_create(user=user)
-        print(f"Pass this one?: {token}", type(token))
         return Response({
             "user": UserSerializer(user, context=self.get_serializer_context()).data,
             "token": token.key
