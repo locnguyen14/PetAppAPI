@@ -8,10 +8,11 @@ from animal.serializers import AnimalSerializer
 from animal.permissions import IsOwnerOrReadOnly
 from rest_framework import status
 from rest_framework.response import Response
+from rest_framework.authentication import TokenAuthentication
 
 
 class AnimalViewSet(viewsets.ModelViewSet):
-    queryset = Animal.objects.all()
+    authentication_classes = (TokenAuthentication,)
     serializer_class = AnimalSerializer
     permission_classes = [
         permissions.IsAuthenticatedOrReadOnly, IsOwnerOrReadOnly]
