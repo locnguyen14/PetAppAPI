@@ -19,6 +19,4 @@ class AnimalSerializer(serializers.ModelSerializer):
     # --> need to modify those 2 functions
 
     def create(self, validated_data):
-        print("Inside create of serializer")
-        print(f"WHat is the validated data: {validated_data}")
         return Animal.objects.create(**validated_data)
