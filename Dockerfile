@@ -8,6 +8,7 @@ COPY ./requirements.txt /requirements.txt
 RUN \
     apk add --no-cache postgresql-libs && \
     apk add --no-cache --virtual .tmp gcc libc-dev linux-headers musl-dev postgresql-dev && \
+    apk add libffi-dev && \
     python3 -m pip install -r requirements.txt --no-cache-dir && \
     apk --purge del .tmp
 
