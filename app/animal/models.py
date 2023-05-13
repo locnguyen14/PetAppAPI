@@ -16,6 +16,7 @@ class Animal(models.Model):
     height = models.DecimalField(decimal_places=2, max_digits=6)
     note = models.TextField(max_length=1000)
     animalType = models.IntegerField(choices=ANIMAL_TYPES)
+    image = models.TextField(default=None, null=True)
     owner = models.ForeignKey(
         User, on_delete=models.CASCADE, related_name='animals', null=True)
 
