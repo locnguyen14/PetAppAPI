@@ -20,6 +20,7 @@ class AnimalViewSet(viewsets.ModelViewSet):
     # Explain create and perfomr_create
     # https://stackoverflow.com/questions/41094013/when-to-use-serializers-create-and-modelviewsets-perform-create
     def create(self, request, *args, **kwargs):
+        print("Field in request: ", request.data.keys())
         serializer = self.get_serializer(data=request.data)
         serializer.is_valid(raise_exception=True)
         self.perform_create(serializer)
@@ -30,5 +31,6 @@ class AnimalViewSet(viewsets.ModelViewSet):
         serializer.save(owner=self.request.user)
 
     # If you only want to show a list of objects associated with this users
+
     def get_queryset(self, *args, **kwargs):
         return self.request.user.animals.all()
