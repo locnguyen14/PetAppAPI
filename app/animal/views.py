@@ -9,6 +9,7 @@ from animal.permissions import IsOwnerOrReadOnly
 from rest_framework import status
 from rest_framework.response import Response
 from rest_framework.authentication import TokenAuthentication
+from utils.utils import upload_base64_image_to_s3, generate_image_file_name, generate_image_url
 
 
 class AnimalViewSet(viewsets.ModelViewSet):
@@ -20,7 +21,15 @@ class AnimalViewSet(viewsets.ModelViewSet):
     # Explain create and perfomr_create
     # https://stackoverflow.com/questions/41094013/when-to-use-serializers-create-and-modelviewsets-perform-create
     def create(self, request, *args, **kwargs):
-        print("Field in request: ", request.data.keys())
+        # Upload image
+        base64_image = request.data.get("image", None)
+        file_name = generate_image_file_name()
+        image_url = generate_image_url(file_name) if upload_base64_image_to_s3(
+            base64_image=base64_image, file_name=file_name) else ''  # Get the URL for image
+        # Modify the request.data to take the image as the new url
+        request.data.update({"image": image_url})
+
+        # Do the normal things
         serializer = self.get_serializer(data=request.data)
         serializer.is_valid(raise_exception=True)
         self.perform_create(serializer)

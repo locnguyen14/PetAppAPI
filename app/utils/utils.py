@@ -1,4 +1,44 @@
 from rest_framework import serializers
+import base64
+import boto3
+import environ
+import uuid
+from botocore.exceptions import NoCredentialsError
+
+env = environ.Env(
+    # set casting, default value
+    DEBUG=(bool, True)
+)
+
+s3_resource = boto3.resource('s3',
+                             aws_access_key_id=env('AWS_ACCESS_KEY_ID'),
+                             aws_secret_access_key=env(
+                                 'AWS_SECRET_ACCESS_KEY'),
+                             region_name=env('AWS_DEFAULT_REGION'))
+
+
+def upload_base64_image_to_s3(base64_image, file_name):
+    # Do it better with io.ByteIO
+    try:
+        image_data = base64.b64decode(base64_image)
+        bucket = s3_resource.Bucket(env('AWS_STORAGE_BUCKET_NAME'))
+        bucket.put_object(Body=image_data, Key=f'Image/{file_name}')
+        return True
+    except NoCredentialsError:
+        print("Credential Error")
+        return False
+    except:
+        print("Some other Error")
+        return False
+
+
+def generate_image_file_name():
+    fileName = str(uuid.uuid4())[:12]
+    return f'{fileName}.jpg'
+
+
+def generate_image_url(file_name):
+    return f"https://{env('AWS_STORAGE_BUCKET_NAME')}.s3.{env('AWS_DEFAULT_REGION')}.amazonaws.com/Image/{file_name}"
 
 
 class ChoiceField(serializers.ChoiceField):

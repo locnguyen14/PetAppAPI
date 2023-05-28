@@ -19,6 +19,4 @@ class AnimalSerializer(serializers.ModelSerializer):
     # --> need to modify those 2 functions
 
     def create(self, validated_data):
-        # imageURL = validated_data.get("animalPhotoBase64Encode", None)
-        print("Validated data: ", validated_data)
         return Animal.objects.create(**validated_data)
