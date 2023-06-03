@@ -19,10 +19,12 @@ s3_resource = boto3.resource('s3',
 
 def upload_base64_image_to_s3(base64_image, file_name):
     # Do it better with io.ByteIO
+    # TODO: boto3 documentation: https://boto3.amazonaws.com/v1/documentation/api/latest/reference/services/s3/bucket/put_object.html
     try:
         image_data = base64.b64decode(base64_image)
         bucket = s3_resource.Bucket(env('AWS_STORAGE_BUCKET_NAME'))
-        bucket.put_object(Body=image_data, Key=f'Image/{file_name}')
+        bucket.put_object(
+            Body=image_data, Key=f'Image/{file_name}', ACL='bucket-owner-full-control')
         return True
     except NoCredentialsError:
         print("Credential Error")
