@@ -1,5 +1,8 @@
 name: Django Automated Test Rerun
 
+env:
+  SECRET_KEY: "ih0ax7@mi)fm600%o_7c_dduqwkolrn-goaw)t1ul5ko(8ofm#"
+
 on:
   push:
     branches:
