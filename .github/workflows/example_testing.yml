@@ -1,4 +1,4 @@
-name: Django Automated Test
+name: Django Automated Test Rerun
 
 on:
   push:
