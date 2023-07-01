@@ -1,7 +1,17 @@
 name: Django Automated Test Rerun
 
 env:
-  SECRET_KEY: "ih0ax7@mi)fm600%o_7c_dduqwkolrn-goaw)t1ul5ko(8ofm#"
+  SECRET_KEY: ih0ax7@mi)fm600%o_7c_dduqwkolrn-goaw)t1ul5ko(8ofm#
+  DB_NAME: PetApp
+  DB_USER: postgres
+  DB_PASSWORD: SolvusSoftware
+  DB_HOST: localhost
+  DB_PORT: 5432
+  LOCAL_ALLOWED_HOST: 192.168.0.31
+  AWS_ACCESS_KEY_ID: AKIAW6YLJIVHB3RCNIEO
+  AWS_SECRET_ACCESS_KEY: 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
+  AWS_DEFAULT_REGION: us-east-2
+  AWS_STORAGE_BUCKET_NAME: petappfile
 
 on:
   push:
