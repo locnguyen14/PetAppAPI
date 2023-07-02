@@ -1,7 +1,7 @@
 name: Django Automated Test Rerun
 
 env:
-  SECRET_KEY: ih0ax7@mi)fm600%o_7c_dduqwkolrn-goaw)t1ul5ko(8ofm#
+  SECRET_KEY: $SECRET_KEY
   DB_NAME: PetApp
   DB_USER: postgres
   DB_PASSWORD: SolvusSoftware
