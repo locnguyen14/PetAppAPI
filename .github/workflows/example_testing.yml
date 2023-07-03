@@ -44,7 +44,8 @@ jobs:
       - uses: actions/checkout@v3
       - name: Check if running in a Continaer
         run: |
-          if [[ "${{ runner.container }}" == "container" ]]; then
+          if [ $((runner.container)) == "container" ] 
+          then
             echo "Running in a container"
           else
             echo "Running directly on the runner"
