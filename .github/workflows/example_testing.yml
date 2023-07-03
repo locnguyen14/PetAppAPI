@@ -2,17 +2,17 @@ name: Django Automated Test Rerun
 
 env:
   # Workflow level environment variables
-  SECRET_KEY: $SECRET_KEY
-  DB_NAME: $DB_NAME
-  DB_USER: $DB_USER
-  DB_PASSWORD: $DB_PASSWORD
-  DB_HOST: postgres
-  DB_PORT: $DB_PORT
-  LOCAL_ALLOWED_HOST: $LOCAL_ALLOWED_HOST
-  AWS_ACCESS_KEY_ID: $AWS_ACCESS_KEY_ID
-  AWS_SECRET_ACCESS_KEY: $AWS_SECRET_ACCESS_KEY
-  AWS_DEFAULT_REGION: $AWS_DEFAULT_REGION
-  AWS_STORAGE_BUCKET_NAME: $AWS_STORAGE_BUCKET_NAME
+  SECRET_KEY: ih0ax7@mi)fm600%o_7c_dduqwkolrn-goaw)t1ul5ko(8ofm#
+  DB_NAME: devdb
+  DB_USER: devuser
+  DB_PASSWORD: changeme
+  DB_HOST: 127.0.0.1 # same name of image host
+  DB_PORT: 5432 # will map later on
+#   LOCAL_ALLOWED_HOST: $LOCAL_ALLOWED_HOST
+#   AWS_ACCESS_KEY_ID: $AWS_ACCESS_KEY_ID
+#   AWS_SECRET_ACCESS_KEY: $AWS_SECRET_ACCESS_KEY
+#   AWS_DEFAULT_REGION: $AWS_DEFAULT_REGION
+#   AWS_STORAGE_BUCKET_NAME: $AWS_STORAGE_BUCKET_NAME
 
 on:
   push:
@@ -34,6 +34,8 @@ jobs:
           POSTGRES_PASSWORD: $DB_PASSWORD
           POSTGRES_USER: $DB_USER
           POSTGRES_DB: $DB_NAME
+        ports:
+          - 5432:5432
         options: >-
           --health-cmd pg_isready
           --health-interval 10s
@@ -42,14 +44,6 @@ jobs:
     
     steps:
       - uses: actions/checkout@v3
-      - name: Check if running in a Continaer
-        run: |
-          if [ $((runner.container)) == "container" ] 
-          then
-            echo "Running in a container"
-          else
-            echo "Running directly on the runner"
-          fi
       - name: Set up Python 3.10
         uses: actions/setup-python@v4
         with:
