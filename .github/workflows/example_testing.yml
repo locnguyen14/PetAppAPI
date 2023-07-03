@@ -31,7 +31,17 @@ jobs:
       postgres:
         image: postgres
         env:
-          POSTGRES_PASSWORD: postgres
+          SECRET_KEY: $SECRET_KEY
+          DB_NAME: $DB_NAME
+          DB_USER: $DB_USER
+          DB_PASSWORD: postgres
+          DB_HOST: postgres
+          DB_PORT: $DB_PORT
+          LOCAL_ALLOWED_HOST: $LOCAL_ALLOWED_HOST
+          AWS_ACCESS_KEY_ID: $AWS_ACCESS_KEY_ID
+          AWS_SECRET_ACCESS_KEY: $AWS_SECRET_ACCESS_KEY
+          AWS_DEFAULT_REGION: $AWS_DEFAULT_REGION
+          AWS_STORAGE_BUCKET_NAME: $AWS_STORAGE_BUCKET_NAME
         options: >-
           --health-cmd pg_isready
           --health-interval 10s
@@ -51,18 +61,6 @@ jobs:
       - name: Run Database Migration
         run: |
           python3 app/manage.py migrate
-        env:
-          SECRET_KEY: $SECRET_KEY
-          DB_NAME: $DB_NAME
-          DB_USER: $DB_USER
-          DB_PASSWORD: postgres
-          DB_HOST: postgres
-          DB_PORT: $DB_PORT
-          LOCAL_ALLOWED_HOST: $LOCAL_ALLOWED_HOST
-          AWS_ACCESS_KEY_ID: $AWS_ACCESS_KEY_ID
-          AWS_SECRET_ACCESS_KEY: $AWS_SECRET_ACCESS_KEY
-          AWS_DEFAULT_REGION: $AWS_DEFAULT_REGION
-          AWS_STORAGE_BUCKET_NAME: $AWS_STORAGE_BUCKET_NAME
       
       # TODO: fix the testing folder here with how we do database setup
       # - name: Animal Model Test
