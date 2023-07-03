@@ -111,10 +111,10 @@ WSGI_APPLICATION = 'API.wsgi.application'
 # Local dev: python manage.py runserver
 # Docker dev: everything starts with "docker-compose"
 print("Start Connection with: ", env("DB_NAME"))
-print("User": ", env("DB_USER"))
-print("Password": ", env("DB_PASSWORD"))
-print("Host": ", env("DB_HOST"))
-print("Port": ", env("DB_PORT"))
+print("User: ", env("DB_USER"))
+print("Password: ", env("DB_PASSWORD"))
+print("Host: ", env("DB_HOST"))
+print("Port: ", env("DB_PORT"))
 
 DATABASES = {
     'default': {

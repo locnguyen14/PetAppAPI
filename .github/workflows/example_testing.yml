@@ -41,7 +41,7 @@ jobs:
           --health-interval 10s
           --health-timeout 5s
           --health-retries 5
-    
+
     steps:
       - uses: actions/checkout@v3
       - name: Set up Python 3.10
@@ -54,8 +54,8 @@ jobs:
           pip install -r requirements.txt
       - name: Run Database Migration
         run: |
-          python3 app/manage.py migrate
-      
+          python3 -u app/manage.py migrate
+
       # TODO: fix the testing folder here with how we do database setup
       # - name: Animal Model Test
       #   run: |
