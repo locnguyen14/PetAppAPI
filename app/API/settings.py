@@ -110,6 +110,12 @@ WSGI_APPLICATION = 'API.wsgi.application'
 # DB connection
 # Local dev: python manage.py runserver
 # Docker dev: everything starts with "docker-compose"
+print("Start Connection with: ", env("DB_NAME"))
+print("User": ", env("DB_USER"))
+print("Password": ", env("DB_PASSWORD"))
+print("Host": ", env("DB_HOST"))
+print("Port": ", env("DB_PORT"))
+
 DATABASES = {
     'default': {
         'ENGINE': 'django.db.backends.postgresql_psycopg2',
