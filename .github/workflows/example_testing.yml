@@ -55,8 +55,6 @@ jobs:
       - name: Run Database Migration
         run: |
           python3 -u app/manage.py migrate
-
-      # TODO: fix the testing folder here with how we do database setup
-      # - name: Animal Model Test
-      #   run: |
-      #     python3 app/manage.py test app/animal/tests
+      - name: Animal Model Test
+        run: |
+          python3 app/manage.py test app/animal/tests
