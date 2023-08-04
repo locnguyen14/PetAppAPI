@@ -15,7 +15,7 @@ jobs:
     env:
       # Workflow level environment variables
       SECRET_KEY: ih0ax7@mi)fm600%o_7c_dduqwkolrn-goaw)t1ul5ko(8ofm#
-      DB_NAME: devdb
+      DB_NAME: ${{vars.DB_NAME}}
       DB_USER: devuser
       DB_PASSWORD: changeme
       DB_HOST: 127.0.0.1 # same name of image host
