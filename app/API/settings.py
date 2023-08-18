@@ -32,7 +32,7 @@ DEBUG = env('DEBUG')
 
 # Raises Django's ImproperlyConfigured
 # exception if SECRET_KEY not in os.environ
-# SECRET_KEY = env('SECRET_KEY')
+SECRET_KEY = env('SECRET_KEY')
 
 # Quick-start development settings - unsuitable for production
 # See https://docs.djangoproject.com/en/4.1/howto/deployment/checklist/
@@ -130,12 +130,12 @@ DATABASES = {
 if os.environ.get('GITHUB_WORKFLOW'):
     DATABASES = {
         'default': {
-           'ENGINE': 'django.db.backends.postgresql',
-           'NAME': 'devdb',
-           'USER': 'devuser',
-           'PASSWORD': 'changeme',
-           'HOST': 'postgres',
-           'PORT': '5432',
+            'ENGINE': 'django.db.backends.postgresql',
+            'NAME': 'devdb',
+            'USER': 'devuser',
+            'PASSWORD': 'changeme',
+            'HOST': 'postgres',
+            'PORT': '5432',
         }
     }
 

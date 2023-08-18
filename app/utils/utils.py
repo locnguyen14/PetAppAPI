@@ -24,7 +24,7 @@ def upload_base64_image_to_s3(base64_image, file_name):
         image_data = base64.b64decode(base64_image)
         bucket = s3_resource.Bucket(env('AWS_STORAGE_BUCKET_NAME'))
         bucket.put_object(
-            Body=image_data, Key=f'Image/{file_name}', ACL='public-read')
+            Body=image_data, Key=f'Image/{file_name}')
         return True
     except NoCredentialsError:
         print("Credential Error")
