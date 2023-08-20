@@ -4,15 +4,14 @@ services:
   app:
     build:
       context: .
-    ports:
-      - "8000:8000"
-    volumes:
-      - ./app:/app
-    command: sh -c "python manage.py runserver 0.0.0.0:8000"
+      dockerfile: Dockerfile.prod
+    expose:
+      - 8000
+    command: gunicorn API.wsgi:application --bind 0.0.0.0:8000
     environment:
       - DEBUG=1
       - SECRET_KEY=ih0ax7@mi)fm600%o_7c_dduqwkolrn-goaw)t1ul5ko(8ofm#
-      - DB_NAME=devdb
+      - DB_NAME=proddb
       - DB_USER=devuser
       - DB_PASSWORD=changeme
       - DB_HOST=db
@@ -24,9 +23,15 @@ services:
     volumes:
       - postgres_data:/var/lib/postgresql/data/
     environment:
-      - POSTGRES_DB=devdb
+      - POSTGRES_DB=proddb
       - POSTGRES_USER=devuser
       - POSTGRES_PASSWORD=changeme
+  nginx:
+    build: ./nginx
+    ports: 
+      - 1337:80
+    depends_on:
+      - app
 
 volumes:
   postgres_data:

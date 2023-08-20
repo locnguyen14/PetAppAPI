@@ -13,7 +13,9 @@ django-storages==1.13.2
 djangorestframework==3.14.0
 factory-boy==3.2.1
 Faker==15.3.4
+gunicorn==21.2.0
 jmespath==1.0.1
+packaging==23.1
 psycopg2==2.9.5
 pycodestyle==2.10.0
 pycparser==2.21
