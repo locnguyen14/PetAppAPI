@@ -5,6 +5,9 @@ services:
     build:
       context: .
       dockerfile: Dockerfile.prod
+    volumes:
+      - static_volume:/vol/web/static
+      - media_volume:/vol/web/media
     expose:
       - 8000
     command: gunicorn API.wsgi:application --bind 0.0.0.0:8000
@@ -28,6 +31,9 @@ services:
       - POSTGRES_PASSWORD=changeme
   nginx:
     build: ./nginx
+    volumes:
+      - static_volume:/vol/web/static
+      - media_volume:/vol/web/media
     ports: 
       - 1337:80
     depends_on:
@@ -35,6 +41,8 @@ services:
 
 volumes:
   postgres_data:
+  static_volume:
+  media_volume:
 
 
 
