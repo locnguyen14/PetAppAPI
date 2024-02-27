@@ -1,24 +1,35 @@
-0. General command to run docker with docker-compose:
+# Containerized REST API Server with Django
 
-   - docker-compose run <service_name> <django_commands>
+This Django API Rest Server is a template playground for any developers who want to reference any implementation of some web development concepts that can be done with Django application. Particularly:
 
-1. Running Pet App API with Docker:
+- How to utuilize DAO library for database access
+- How to secure an API Endpoint
+- How to handle image upload/retrival with CDN such as AWS S3
+- How to set up for containerized deployment (both API server and database
 
-   For ease of development, this Django application is containerized with Docker and can be run with of couplfe of task:
+## Setup
 
-   - Clone the application
-   - Open the application in a command window/terminal
-   - Run `docker-compose build`--> build the image
-   - Run `docker compose up` --> run the container
-   - Run `docker-compose run app python manage.py migrate` --> set up the schema for postgres database
-   - Run `docker-compose run app python manage.py shell` --> interact with Django server and seed in some data
+- Clone the repository
+- Install docker and docker-compose on your machine
+- Spin up the containers:
+  - `docker compose -f docker-compose.yml up --build`
+  - Visit http://localhost:8000/ to check if the API server is up
 
-2. How to expose API to other machine (beside your own computer):
+## Development
 
-   - Run `pip install -r requirements.txt` to install all dependencies on your machine
-   - I want to test my app on my own personal IPhone and was running into a this particular networking issues: the main communication method is WIFI and the iOS device could not talk to my Window laptop because Apple device might not be able to recognize **localhost:8000** or **127.0.0.1:8000** due to different OS architechture. As a result, I need to expose the API via the IP address of the Wifi router:
-   
-     - Search for the router IP address in the command line with : `ipconfig`. Say the IP config is: 123.123.4.1
-     - Expose your API with Django command: `python app\manage.py runserver 123.123.4.1:8000`
-     
-   - If your API is run/hosted on a Mac, simply run: `python app\manage.py runserver`
+- Database migration:
+  - `docker exec -it <server_container_name> python manage.py migrate`
+- Database seeding. There are 2 ways to interact with the containerize database
+  - With Django Shell: `docker exec -it <server_container_name> python manage.py shell`
+  - With PSQL: `docker exec -it <database_container_name> psql -U <username> -d <database_name>`
+- Info can be found inside the docker-compose.yml file
+
+## Networking Issues
+
+- Problem: how to test communication with API from a UI app on personal phone?
+  - Ensure API host machine and UI host machine on the same network (whether it's wifi, lan, etc...)
+  - Run/Expose the API via the IP address of the Wifi route:
+    - Search for the router IP address in the command line with : `ipconfig`. Say the IP config is: `123.123.4.1`
+    - Expose your API with Django command: `python app\manage.py runserver 123.123.4.1:8000`
+
+## API Schedma
