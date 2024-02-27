@@ -32,4 +32,11 @@ This Django API Rest Server is a template playground for any developers who want
     - Search for the router IP address in the command line with : `ipconfig`. Say the IP config is: `123.123.4.1`
     - Expose your API with Django command: `python app\manage.py runserver 123.123.4.1:8000`
 
-## API Schedma
+## API Schema
+
+- Get the API schema by visiting the below 3 endpoints:
+  - /api/schema/
+  - /api/schema/swagger-ui/
+  - /api/schema/redoc/
+
+![alt text](docs/PetAppAPISchema.png)
