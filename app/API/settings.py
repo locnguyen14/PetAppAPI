@@ -62,10 +62,10 @@ INSTALLED_APPS = [
     'user',
     'django_extensions',
     'rest_framework.authtoken',
+    'drf_spectacular',
 ]
 
 MIDDLEWARE = [
-
     'django.middleware.security.SecurityMiddleware',
     'django.contrib.sessions.middleware.SessionMiddleware',
     'corsheaders.middleware.CorsMiddleware',
@@ -106,10 +106,7 @@ WSGI_APPLICATION = 'API.wsgi.application'
 
 # Database
 # https://docs.djangoproject.com/en/4.1/ref/settings/#databases
-
-# DB connection
-# Local dev: python manage.py runserver
-# Docker dev: everything starts with "docker-compose"
+# Checking for DB connection environment
 print("Start Connection with: ", env("DB_NAME"))
 print("User: ", env("DB_USER"))
 print("Password: ", env("DB_PASSWORD"))
@@ -160,13 +157,9 @@ AUTH_PASSWORD_VALIDATORS = [
 
 # Internationalization
 # https://docs.djangoproject.com/en/4.1/topics/i18n/
-
 LANGUAGE_CODE = 'en-us'
-
 TIME_ZONE = 'UTC'
-
 USE_I18N = True
-
 USE_TZ = True
 
 # AWS S3 Configuration
@@ -191,8 +184,16 @@ DEFAULT_AUTO_FIELD = 'django.db.models.BigAutoField'
 
 REST_FRAMEWORK = {
     'DEFAULT_PAGINATION_CLASS': 'rest_framework.pagination.PageNumberPagination',
-    'PAGE_SIZE': 10
+    'PAGE_SIZE': 10,
+    'DEFAULT_SCHEMA_CLASS': 'drf_spectacular.openapi.AutoSchema',
 }
 
 SECURE_PROXY_SSL_HEADER = ("HTTP_X_FORWARDED_PROTO", "https")
 CSRF_TRUSTED_ORIGINS = ["http://localhost:1337"]
+
+SPECTACULAR_SETTINGS = {
+    'TITLE': 'Pet App API',
+    'DESCRIPTION': 'This API includes basic CRUD functionality for any user and pet managmenet application',
+    'VERSION': '1.0.0',
+    'SERVE_INCLUDE_SCHEMA': False,
+}
