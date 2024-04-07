@@ -3,7 +3,7 @@ import base64
 import boto3
 import environ
 import uuid
-from botocore.exceptions import NoCredentialsError
+from botocore.exceptions import NoCredentialsError, ParamValidationError, BotoCoreError, ClientError
 
 env = environ.Env(
     # set casting, default value
@@ -23,15 +23,22 @@ def upload_base64_image_to_s3(base64_image, file_name):
     try:
         image_data = base64.b64decode(base64_image)
         bucket = s3_resource.Bucket(env('AWS_STORAGE_BUCKET_NAME'))
-        bucket.put_object(
-            Body=image_data, Key=f'Image/{file_name}')
+        bucket.put_object(Body=image_data, Key=f'Image/{file_name}')
         return True
-    except NoCredentialsError:
-        print("Credential Error")
+    except ClientError as e:
+        print(f'Client Error {e}')
         return False
-    except:
-        print("Some other Error")
+    except NoCredentialsError as e:
+        print(f'Credential Error {e}')
         return False
+    except ParamValidationError as e:
+        print(f'Param Validation Error {e}')
+        return False
+    except BotoCoreError as e:
+        print(f'Botocore Error {e}')
+        return False
+    except Exception as e:
+        print(f'Some other error {e}')
 
 
 def generate_image_file_name():
